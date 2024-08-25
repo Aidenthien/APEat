@@ -1,16 +1,10 @@
-# apeat
+# APEat
 
-A new Flutter project.
+A new Flutter project assignment that is done on Y2S2.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Features
+- CRUD operations on place an order (student)
+- CRUD operations on update the menu (kitchen staff)
+- CRUD operations on update the university stall (admin)
+- Firebase utilization such as Firestore, Storage, Authentication, and TestLab
+- Follow the university business rules and improve the current cafeteria food ordering process
