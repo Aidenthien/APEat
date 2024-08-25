@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "878742612590",
+    "project_id": "apeat-4b0af",
+    "storage_bucket": "apeat-4b0af.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878742612590:android:43915ae6cdd3d63ea9947f",
+        "android_client_info": {
+          "package_name": "com.example.apeat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwohToj0K5WARO_6_4MSeneb1MWY71gdA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
