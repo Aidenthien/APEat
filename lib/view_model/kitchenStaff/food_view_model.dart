@@ -1,22 +1,44 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
+import 'dart:convert';
 
 import '../../model/kitchenStaff/food.dart';
 
 class KitchenFoodViewModel extends ChangeNotifier {
-  final FirebaseStorage _storage = FirebaseStorage.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   bool _isSaving = false;
   bool get isSaving => _isSaving;
 
+  final String cloudName = "dgxbp7dy3";  // Replace with your Cloudinary cloud name
+  final String apiKey = "EcoEatSmart";  // Replace with your Cloudinary API key
+  final String apiSecret = "jj6IKoqHxuLDFNwo-NqVfLsBDUw";  // Replace with your Cloudinary API secret
+
   Future<String> _uploadImage(File image) async {
-    final storageRef = _storage.ref().child('food_images').child('${DateTime.now().toIso8601String()}.jpg');
-    await storageRef.putFile(image);
-    return await storageRef.getDownloadURL();
+    final url = Uri.parse("https://api.cloudinary.com/v1_1/$cloudName/image/upload");
+
+    var request = http.MultipartRequest('POST', url)
+      ..fields['upload_preset'] = 'ecoeatsmart'  // Replace with your preset name
+      ..files.add(await http.MultipartFile.fromPath(
+        'file',
+        image.path,
+        contentType: MediaType('image', 'jpeg'),
+      ));
+
+    var response = await request.send();
+    final responseBody = await response.stream.bytesToString();
+
+    if (response.statusCode == 200) {
+      final responseData = json.decode(responseBody);
+      return responseData['secure_url'];  // Return Cloudinary image URL
+    } else {
+      throw Exception("Cloudinary Upload Failed: ${response.reasonPhrase} - $responseBody");
+    }
   }
+
 
   Future<void> addFood({
     required String name,
