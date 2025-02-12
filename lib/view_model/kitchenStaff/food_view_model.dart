@@ -6,6 +6,7 @@ import 'package:http_parser/http_parser.dart';
 import 'dart:convert';
 
 import '../../model/kitchenStaff/food.dart';
+import '../../utils/cloudinary_config.dart';
 
 class KitchenFoodViewModel extends ChangeNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -13,15 +14,15 @@ class KitchenFoodViewModel extends ChangeNotifier {
   bool _isSaving = false;
   bool get isSaving => _isSaving;
 
-  final String cloudName = "dgxbp7dy3";  // Replace with your Cloudinary cloud name
-  final String apiKey = "EcoEatSmart";  // Replace with your Cloudinary API key
-  final String apiSecret = "jj6IKoqHxuLDFNwo-NqVfLsBDUw";  // Replace with your Cloudinary API secret
+  final String cloudName = CloudinaryConfig.cloudName;
+  final String apiKey = CloudinaryConfig.apiKey;
+  final String apiSecret = CloudinaryConfig.apiSecret;
 
   Future<String> _uploadImage(File image) async {
     final url = Uri.parse("https://api.cloudinary.com/v1_1/$cloudName/image/upload");
 
     var request = http.MultipartRequest('POST', url)
-      ..fields['upload_preset'] = 'ecoeatsmart'  // Replace with your preset name
+      ..fields['upload_preset'] = CloudinaryConfig.uploadPreset
       ..files.add(await http.MultipartFile.fromPath(
         'file',
         image.path,
